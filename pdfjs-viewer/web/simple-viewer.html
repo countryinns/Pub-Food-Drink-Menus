@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>View Menu</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+    iframe {
+      height: 100%;
+      width: 100%;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const file = urlParams.get("file");
+
+    if (!file) {
+      document.body.innerHTML = "<p style='padding:2rem;font-size:1.2rem;'>⚠️ No PDF file specified in URL. Use ?file=FILENAME.pdf</p>";
+    } else {
+      const encodedFile = encodeURIComponent(file);
+      document.write(`<iframe src="https://countryinns.github.io/Pub-Food-Drink-Menus/${encodedFile}"></iframe>`);
+    }
+  </script>
+</body>
+</html>
