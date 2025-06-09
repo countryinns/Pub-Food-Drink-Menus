@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Bold Forester</title>
+  <link rel="stylesheet" href="../../styles.css" />
+</head>
+<body>
+
+  <!-- 🔰 Main Content of the pub page -->
+  <header>
+    <h1>Welcome to The Bold Forester</h1>
+    <p>Your perfect local in Marchwood 🍻</p>
+  </header>
+
+  <main>
+    <section>
+      <h2>What’s On</h2>
+      <p>Check below for announcements and event countdowns!</p>
+    </section>
+  </main>
+
+  <!-- 📢 Scrolling Ticker Bar -->
+  <div id="pub-ticker">
+    <marquee behavior="scroll" direction="left">
+      🍻 Book NOW for Father’s Day 15th June| 🧀 All Things Cheese Week 16th June – 22nd June| 🍔Burger Week 17th July – 23rd July
+    </marquee>
+  </div>
+
+  <!-- ⏳ Countdown Timer -->
+  <div id="countdown-timer-container">
+    <p id="countdown-message">🎉 Father’s Day Countdown: <span id="countdown"></span></p>
+  </div>
+
+  <!-- ⚙️ JavaScript for countdown + theme switcher -->
+  <script>
+    // 🕐 Countdown Timer – set event date/time
+    const eventDate = new Date("2025-06-15T12:00:00"); // Father’s Day at 12pm
+
+    function updateCountdown() {
+      const now = new Date();
+      const distance = eventDate - now;
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hrs = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const mins = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const secs = Math.floor((distance % (1000 * 60)) / 1000);
+
+      const output = distance > 0
+        ? `${days}d ${hrs}h ${mins}m ${secs}s`
+        : "🎉 It’s happening now!";
+
+      document.getElementById("countdown").textContent = output;
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // 🌗 Theme switcher (time-based or system preference)
+    function applyTheme() {
+      const hour = new Date().getHours();
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const autoDark = hour < 7 || hour >= 19;
+
+      if (prefersDark || autoDark) {
+        document.body.classList.add("dark-theme");
+        document.body.classList.remove("light-theme");
+      } else {
+        document.body.classList.add("light-theme");
+        document.body.classList.remove("dark-theme");
+      }
+    }
+
+    applyTheme();
+  </script>
+
+  <!-- 🖌 CSS Styles -->
+  <style>
+    body.light-theme {
+      background: #ffffff;
+      color: #111;
+    }
+
+    body.dark-theme {
+      background: #121212;
+      color: #f5f5f5;
+    }
+
+    #pub-ticker {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background: #333;
+      color: #fff;
+      font-weight: bold;
+      padding: 6px;
+      z-index: 1000;
+    }
+
+    #pub-ticker marquee {
+      font-size: 1rem;
+    }
+
+    #countdown-timer-container {
+      text-align: center;
+      padding: 1rem;
+      margin-bottom: 40px; /* space for ticker */
+      font-size: 1.2rem;
+    }
+  </style>
+
+</body>
+</html>
